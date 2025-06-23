@@ -12,11 +12,17 @@
 # 라고 지피티가 그랬어
 
 # auth.py
-from flask import Blueprint, request, jsonify
-from db import db, conn
+import pymysql
+import random
+import requests
+from flask import Blueprint, request, jsonify, render_template
+from db import cursor, conn
 import bcrypt
 
 auth = Blueprint('auth', __name__)
+@auth.route('/')
+def index():
+    return render_template('data.html')
 
 @auth.route('/register', methods=['POST'])
 def register():
@@ -26,7 +32,7 @@ def register():
 
     hashed = bcrypt.hashpw(pw, bcrypt.gensalt())
     sql = "INSERT INTO users (email, password) VALUES (%s, %s)"
-    db.execute(sql, (email, hashed.decode('utf-8')))
+    cursor.execute(sql, (email, hashed.decode('utf-8')))
     conn.commit()
 
     return jsonify({"message": "회원가입 성공!"}), 201
@@ -37,8 +43,8 @@ def login():
     email = data['email']
     pw = data['password'].encode('utf-8')
 
-    db.execute("SELECT * FROM users WHERE email = %s", (email,))
-    user = db.fetchone()
+    cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+    user = cursor.fetchone()
 
     if user and bcrypt.checkpw(pw, user['password'].encode('utf-8')):
         return jsonify({"message": "로그인 성공!"})
