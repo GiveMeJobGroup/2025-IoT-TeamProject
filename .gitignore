@@ -404,3 +404,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+# 가상환경 업로드 방지 추가
+venv
