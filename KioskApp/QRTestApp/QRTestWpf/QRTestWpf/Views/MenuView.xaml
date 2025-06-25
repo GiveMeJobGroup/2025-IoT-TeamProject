@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="QRTestWpf.Views.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:QRTestWpf.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="450"
+             >
+    <!--둥근 버튼-->
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1.25*"/>
+            <RowDefinition Height="1.25*"/>
+            <RowDefinition Height="1.25*"/>
+            <RowDefinition Height="1.25*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="/Resources/GondreMandre.png" Stretch="Fill"/>
+        <Button Grid.Row="1" Content="검색" FontSize="25" Margin="15"
+                Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
+                Command="{Binding }"/>
+        <Button Grid.Row="2" Content="대출" FontSize="25" Margin="15"
+                Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
+                Command="{Binding QRScanCommand}"/>
+        <Button Grid.Row="3" Content="반납" FontSize="25" Margin="15"
+                Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
+                Command="{Binding }"/>
+    </Grid>
+</UserControl>

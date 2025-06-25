@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace QRTestWpf.Views
 {
     /// <summary>
-    /// QRScan.xaml에 대한 상호 작용 논리
+    /// MenuView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class QRScanView : UserControl
+    public partial class MenuView : UserControl
     {
-        public QRScanView()
+        public MenuView()
         {
             InitializeComponent();
         }

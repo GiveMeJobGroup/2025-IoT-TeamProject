@@ -11,5 +11,6 @@ namespace QRTestWpf.Views
         {
             InitializeComponent();
         }
+        
     }
 }
