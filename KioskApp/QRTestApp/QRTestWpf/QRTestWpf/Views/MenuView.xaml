@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:QRTestWpf.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="450"
-             >
+             d:DesignHeight="700" d:DesignWidth="450">
     <!--둥근 버튼-->
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -32,13 +32,13 @@
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Source="/Resources/GondreMandre.png" Stretch="Fill"/>
         <Button Grid.Row="1" Content="검색" FontSize="25" Margin="15"
-                Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
-                Command="{Binding }"/>
+                    Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
+                    Command="{Binding }"/>
         <Button Grid.Row="2" Content="대출" FontSize="25" Margin="15"
-                Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
-                Command="{Binding QRScanCommand}"/>
+                    Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
+                    Command="{Binding QRScanCommand}"/>
         <Button Grid.Row="3" Content="반납" FontSize="25" Margin="15"
-                Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
-                Command="{Binding }"/>
+                    Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
+                    Command="{Binding }"/>
     </Grid>
 </UserControl>

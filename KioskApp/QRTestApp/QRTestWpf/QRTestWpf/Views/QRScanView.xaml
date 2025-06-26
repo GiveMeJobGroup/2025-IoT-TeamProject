@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:QRTestWpf.Views"
+             Dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="450"
-             >
+             d:DesignHeight="700" d:DesignWidth="450">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -21,15 +22,16 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Content="QR코드를 인식해주세요." FontSize="25"
-            VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <Image Grid.Row="1" Grid.Column="1" Source="/Resources/QRScan.png" 
-            Stretch="Uniform"/>
+        Stretch="Uniform"/>
         <Button Grid.Row="2" Grid.Column="1"
-             Background="Transparent" BorderBrush="Transparent">
+                Background="Transparent" BorderBrush="Transparent"
+                Command="{Binding CloseQRCommand}">
             <Image Source="/Resources/CloseButton.png"
-                HorizontalAlignment="Center"
-                Stretch="Uniform"
-                Width="60" Height="60"/>
+            HorizontalAlignment="Center"
+            Stretch="Uniform"
+            Width="60" Height="60"/>
         </Button>
     </Grid>
 </UserControl>

@@ -4,12 +4,12 @@ using MahApps.Metro.Controls.Dialogs;
 using QRTestWpf.Helpers;
 using QRTestWpf.Views;
 using System.Windows.Controls;
-using System.Windows;
 
 namespace QRTestWpf.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        #region 필드
         private readonly IDialogCoordinator dialogCoordinator;
 
         private UserControl _currentView;
@@ -17,7 +17,6 @@ namespace QRTestWpf.ViewModels
         public MainViewModel(IDialogCoordinator coordinator)
         {
             this.dialogCoordinator = coordinator;
-
             ShowMenu();
         }
 
@@ -26,11 +25,13 @@ namespace QRTestWpf.ViewModels
             get => _currentView;
             set => SetProperty(ref _currentView, value);
         }
+        #endregion
 
+        #region 메서드
         [RelayCommand]
         public void ShowMenu()
         {
-            var viewModel = new MenuViewModel(Common.DIALOGCOORDINATOR);
+            var viewModel = new MenuViewModel(Common.DIALOGCOORDINATOR, this);
 
             var view = new MenuView
             {
@@ -38,11 +39,11 @@ namespace QRTestWpf.ViewModels
             };
             CurrentView = view;
         }
+
         [RelayCommand]
         public void ShowQRScan()
         {
-            MessageBox.Show("대출 열기");
-            var viewModel = new QRScanViewModel(Common.DIALOGCOORDINATOR);
+            var viewModel = new QRScanViewModel(Common.DIALOGCOORDINATOR, this);
             
             var view = new QRScanView
             {
@@ -50,5 +51,6 @@ namespace QRTestWpf.ViewModels
             };
             CurrentView = view;
         }
+        #endregion
     }
 }
