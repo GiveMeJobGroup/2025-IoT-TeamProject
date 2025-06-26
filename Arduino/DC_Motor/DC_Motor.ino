@@ -1,9 +1,9 @@
 // 3번과 4번 핀은 모터 제어에 관한 핀
-int IN1Pin = 14;
-int IN2Pin = 12;
+int IN1Pin = 12;
+int IN2Pin = 13;
 
 // 5번핀은 모터의 힘을 설정해주는 핀
-int ENPin = 13;
+int ENPin = 14;
 
 void setup() {
   pinMode(IN1Pin, OUTPUT);

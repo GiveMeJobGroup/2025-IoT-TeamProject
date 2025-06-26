@@ -1,12 +1,12 @@
 // 3번과 4번 핀은 모터 제어에 관한 핀
 int led = 2;      // GPIO2 = 내장 LED (D4)
-int sensor = 5;   // GPIO5 = D1
+int sensor = 0;   // GPIO5 = D1
 
-int IN1Pin = 14;
-int IN2Pin = 12;
+int IN1Pin = 12;
+int IN2Pin = 13;
 
 // 5번핀은 모터의 힘을 설정해주는 핀
-int ENPin = 13;
+int ENPin = 14;
 
 void setup() {
   Serial.begin(115200);

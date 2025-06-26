@@ -1,8 +1,8 @@
 int led = 2;      // GPIO2 = 내장 LED (D4)
-int sensor = 5;   // GPIO5 = D1
+int sensor = 0;   // GPIO5 = D1
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(led, OUTPUT);
   pinMode(sensor, INPUT);
 }
@@ -16,7 +16,7 @@ void loop(){
   }
   else {
     digitalWrite(led, HIGH);     // LED ON
-    Serial.println("물체가 인식되지 않습니다.");
+    Serial.println("물체가 인식되었습니다.");
     delay(1000);
   }
 }
