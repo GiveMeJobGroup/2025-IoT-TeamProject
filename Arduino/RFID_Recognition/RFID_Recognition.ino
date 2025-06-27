@@ -5,8 +5,10 @@
 #include <SPI.h>
 #include <MFRC522.h>  // RFID 리더기
 
-const char* ssid = "rbk";                // Wi-Fi SSID
-const char* password = "57875787";          // Wi-Fi 비밀번호
+// const char* ssid = "rbk";                // Wi-Fi SSID
+// const char* password = "57875787";          // Wi-Fi 비밀번호
+const char* ssid = "AndroidHotspot1947";                // Wi-Fi SSID
+const char* password = "11333355555577777777";          // Wi-Fi 비밀번호
 
 const char* serverUrl_send = "http://210.119.12.72:5000/rfid";  // 센서 데이터 서버에 전송
 const char* serverUrl_get = "http://210.119.12.72:5000/get_data";      // 서버에서 데이터 수신
@@ -87,7 +89,7 @@ void sendTagToServer(String tagValue) {
           Serial.println("📚 대출된 도서입니다.");
         } else {
           Serial.println("📕 대출되지 않은 도서입니다.");
-          for (i = 0; i < 4; i++){
+          for (int i = 0; i < 4; i++){
             digitalWrite(buzzerPin, HIGH); // 부저 ON
             delay(500);
             digitalWrite(buzzerPin, LOW);  // 부저 OFF
