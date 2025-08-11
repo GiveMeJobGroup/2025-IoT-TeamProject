@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="QRTestWpf.Views.SearchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:QRTestWpf.Views"
+             Dialog:DialogParticipation.Register="{Binding}"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="450">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="132*"/>
+            <RowDefinition Height="71*"/>
+            <RowDefinition Height="147*"/>
+        </Grid.RowDefinitions>
+        <!-- 물결 모양 Path -->
+
+        <Grid Grid.Row="0">
+            <Path Fill="#FFA500" Stretch="Fill" Height="223" VerticalAlignment="Top">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="0,100">
+                            <!-- 첫 번째 곡선 -->
+                            <BezierSegment Point1="150,0" Point2="300,200" Point3="450,100" />
+                            <!-- 아래쪽 직선 -->
+                            <LineSegment Point="450,0" />
+                            <LineSegment Point="0,0" />
+                            <LineSegment Point="0,100" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <TextBox x:Name="TxtSeachMovie" Grid.Column="0" Margin="5,10"
+                     FontSize="20"
+                     InputMethod.PreferredImeState="On"
+                     InputMethod.PreferredImeConversionMode="Native"
+                     InputMethod.PreferredImeSentenceMode="PhrasePrediction"
+                     mah:TextBoxHelper.Watermark="도서명 검색"
+                     mah:TextBoxHelper.AutoWatermark="True"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     Text="{Binding BookName, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding SearchBookCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+
+
+                <!-- Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 버튼 색이였던 것 -->
+
+                <Button Grid.Column="1" Margin="5,10" 
+                    FontSize="14" Content="검색"
+                    Command="{Binding SearchMovieCommand}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern Kind="Magnify" Margin="5,5,15,5" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding}" Margin="5" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+
+    </Grid>
+
+</UserControl>

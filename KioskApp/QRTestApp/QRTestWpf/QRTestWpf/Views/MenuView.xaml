@@ -33,12 +33,12 @@
         <Image Grid.Row="0" Source="/Resources/GondreMandre.png" Stretch="Fill"/>
         <Button Grid.Row="1" Content="검색" FontSize="25" Margin="15"
                     Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
-                    Command="{Binding }"/>
+                    Command="{Binding SearchCommand}"/>
         <Button Grid.Row="2" Content="대출" FontSize="25" Margin="15"
                     Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
                     Command="{Binding QRScanCommand}"/>
         <Button Grid.Row="3" Content="반납" FontSize="25" Margin="15"
                     Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
-                    Command="{Binding }"/>
+                    Command="{Binding ReturnCommand}"/>
     </Grid>
 </UserControl>

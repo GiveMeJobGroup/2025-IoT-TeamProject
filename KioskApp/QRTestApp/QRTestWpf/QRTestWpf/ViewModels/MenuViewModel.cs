@@ -14,12 +14,28 @@ namespace QRTestWpf.ViewModels
             this._mainViewModel = mainViewModel;
             this.DIALOGCOORDINATOR = DIALOGCOORDINATOR;
         }
+        
+        // 메뉴 -> 검색
+        [RelayCommand]
+        public void Search()
+        {
+            _mainViewModel.ShowSearch();
+        }
+
+        // 메뉴 -> 대출
         [RelayCommand]
         public void QRScan()
         {
             _mainViewModel.ShowQRScan();
         }
 
+        // 메뉴 -> 반납
+        [RelayCommand]
+        public void Return()
+        {
+            _mainViewModel.ShowReturn();
+
+        }
 
     }
 }

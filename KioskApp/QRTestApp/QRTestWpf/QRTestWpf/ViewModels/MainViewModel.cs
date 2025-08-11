@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using MahApps.Metro.Controls.Dialogs;
 using QRTestWpf.Helpers;
 using QRTestWpf.Views;
+using System.DirectoryServices;
 using System.Windows.Controls;
 
 namespace QRTestWpf.ViewModels
@@ -28,6 +29,8 @@ namespace QRTestWpf.ViewModels
         #endregion
 
         #region 메서드
+
+        // 빈화면에서 Menu화면이 뜨게 하는 부분
         [RelayCommand]
         public void ShowMenu()
         {
@@ -40,6 +43,33 @@ namespace QRTestWpf.ViewModels
             CurrentView = view;
         }
 
+        // 메뉴 -> 검색
+        [RelayCommand]
+        public void ShowSearch()
+        {
+            var viewModel = new SearchViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new SearchView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+
+        // 검색화면에서 검색 클릭
+        //[RelayCommand]
+        //public void SearchBook()
+        //{
+        //    var viewModel = new SearchResultViewModel(Common.DIALOGCOORDINATOR, this);
+
+        //    var view = new SearchResultView
+        //    {
+        //        DataContext = viewModel,
+        //    };
+        //    CurrentView = view;
+        //}
+
+        // Menu -> 대출
         [RelayCommand]
         public void ShowQRScan()
         {
@@ -50,6 +80,15 @@ namespace QRTestWpf.ViewModels
                 DataContext = viewModel,
             };
             CurrentView = view;
+        }
+
+        // Menu -> 반남
+        [RelayCommand]
+        public void ShowReturn()
+        {
+
+
+
         }
         #endregion
     }
