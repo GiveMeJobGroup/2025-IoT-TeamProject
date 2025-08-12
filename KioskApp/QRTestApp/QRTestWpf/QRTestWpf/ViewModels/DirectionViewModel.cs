@@ -1,26 +1,33 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MahApps.Metro.Controls.Dialogs;
-using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace QRTestWpf.ViewModels
 {
-    public partial class SearchViewModel :ObservableObject
+    public partial class DirectionViewModel : ObservableObject
     {
+
         private IDialogCoordinator DIALOGCOORDINATOR;
 
         private readonly MainViewModel _mainViewModel;
 
-        public SearchViewModel(IDialogCoordinator DIALOGCOORDINATOR, MainViewModel mainViewModel)
+        public DirectionViewModel(IDialogCoordinator DIALOGCOORDINATOR, MainViewModel mainViewModel)
         {
+
             this._mainViewModel = mainViewModel;
             this.DIALOGCOORDINATOR = DIALOGCOORDINATOR;
         }
 
+
         [RelayCommand]
-        public void SearchBook()
+        public void Thx()
         {
-            _mainViewModel.ShowSearchResult();
+            _mainViewModel.ShowMenu();  // 메뉴 화면으로 복귀
         }
     }
 }
