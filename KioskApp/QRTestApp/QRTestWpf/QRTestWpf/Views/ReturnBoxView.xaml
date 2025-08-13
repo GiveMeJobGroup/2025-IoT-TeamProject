@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="QRTestWpf.Views.AfterScanView"
+﻿<UserControl x:Class="QRTestWpf.Views.ReturnBoxView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,9 +8,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="132*"/>
-            <RowDefinition Height="109*"/>
-            <RowDefinition Height="109*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="68*"/>
+            <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
 
         <!-- 물결 모양 Path -->
@@ -29,33 +29,25 @@
             </Path>
         </Grid>
 
-        <!-- 이름 -->
-        <Grid Grid.Row="1" VerticalAlignment="Center">
-            <StackPanel>
-                <TextBlock Text="{Binding UserName, StringFormat={}{0}님}"
-                       FontSize="24"  FontWeight="Bold"
-                       Foreground="#FFA500" 
-                       HorizontalAlignment="Center"/>
-                
-                <TextBlock Text="반갑습니다"
-                           FontSize="24"  FontWeight="Bold"
-                           Foreground="#FFA500"
-                           HorizontalAlignment="Center"/>
-            </StackPanel>
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="49*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Source="/Resources/Box.png" Grid.RowSpan="2" />
 
-            <Button Content=" 화면 전환 확인용 " Margin="273,-228,67,252"
-                    Command="{Binding BorrowOXCommand}"></Button>
-            
         </Grid>
 
         <!-- 상태 메시지 -->
-        <Grid Grid.Row="2" VerticalAlignment="Top">
-            <TextBlock Text="{Binding StatusMessage}" 
-                       FontSize="18" 
-                       Foreground="Gray" 
+        <Grid Grid.Row="2">
+            <TextBlock Text="책을 반납함에 넣어주세요"
+                       FontSize="25"  FontWeight="Bold"
+                       Foreground="#FFA500" 
                        HorizontalAlignment="Center"
-                       TextWrapping="Wrap"
-                       TextAlignment="Center"/>
+                       VerticalAlignment="Center"/>
         </Grid>
+
+        <Button Content="화면 전환 확인용" Margin="304,88,10,32"
+                Command="{Binding WaitCommand}"></Button>
     </Grid>
 </UserControl>

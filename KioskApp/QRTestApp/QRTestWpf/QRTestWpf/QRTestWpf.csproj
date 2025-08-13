@@ -9,10 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\book.png" />
+    <None Remove="Resources\Box.png" />
     <None Remove="Resources\check-mark.png" />
     <None Remove="Resources\CloseButton.png" />
     <None Remove="Resources\CloseButton_Click.png" />
     <None Remove="Resources\GondreMandre.png" />
+    <None Remove="Resources\Librarian.png" />
     <None Remove="Resources\QRScan.png" />
     <None Remove="Resources\Robot.png" />
   </ItemGroup>
@@ -29,6 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\book.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Box.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\check-mark.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -39,6 +48,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\GondreMandre.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Librarian.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\QRScan.png">

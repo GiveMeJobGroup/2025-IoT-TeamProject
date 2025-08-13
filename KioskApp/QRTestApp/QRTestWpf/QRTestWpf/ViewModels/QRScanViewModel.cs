@@ -43,6 +43,8 @@ namespace QRTestWpf.ViewModels
             {
                 await DIALOGCOORDINATOR.ShowMessageAsync(this, "인증 성공", $"이메일: {email}");
                 // TODO: 필요 시 화면 전환 or 자동 로그인 처리
+                // 여기서 다음 화면으로 전환
+                _mainViewModel.ShowAfterScan();
             }
             else
             {
@@ -73,6 +75,13 @@ namespace QRTestWpf.ViewModels
                 await DIALOGCOORDINATOR.ShowMessageAsync(this, "DB 오류", ex.Message);
                 return null;
             }
+        }
+
+        // 화면 전환 확인용
+        [RelayCommand]
+        public void AfterView()
+        {
+            _mainViewModel.ShowAfterScan();
         }
     }
 }
