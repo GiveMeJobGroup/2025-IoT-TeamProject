@@ -43,6 +43,7 @@ namespace QRTestWpf.ViewModels
             CurrentView = view;
         }
 
+        #region 검색 클릭시 화면
         // 메뉴 -> 검색
         [RelayCommand]
         public void ShowSearch()
@@ -56,21 +57,50 @@ namespace QRTestWpf.ViewModels
             CurrentView = view;
         }
 
-        // 검색화면에서 검색 클릭
-        //[RelayCommand]
-        //public void SearchBook()
-        //{
-        //    var viewModel = new SearchResultViewModel(Common.DIALOGCOORDINATOR, this);
+       //검색화면에서 검색 버튼 클릭
+       [RelayCommand]
+        public void ShowSearchResult()
+        {
+            var viewModel = new SearchResultViewModel(Common.DIALOGCOORDINATOR, this);
 
-        //    var view = new SearchResultView
-        //    {
-        //        DataContext = viewModel,
-        //    };
-        //    CurrentView = view;
-        //}
+            var view = new SearchResultView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
 
-        // Menu -> 대출
+        // 검색결과 더블클릭
         [RelayCommand]
+        public void ShowDirectionOX()
+        {
+            var viewModel = new DirectionOXViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new DirectionOXView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+
+
+        // 로봇안내 예 클릭
+        [RelayCommand]
+        public void ShowDirection()
+        {
+            var viewModel = new DirectionViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new DirectionView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+
+        #endregion
+
+       //Menu -> 대출
+       [RelayCommand]
         public void ShowQRScan()
         {
             var viewModel = new QRScanViewModel(Common.DIALOGCOORDINATOR, this);
