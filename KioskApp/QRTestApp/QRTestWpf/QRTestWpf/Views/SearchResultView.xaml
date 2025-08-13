@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="QRTestWpf.Views.SearchView"
+﻿<UserControl x:Class="QRTestWpf.Views.SearchResultView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:QRTestWpf.Views"
              Dialog:DialogParticipation.Register="{Binding}"
@@ -13,9 +14,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="132*"/>
-            <RowDefinition Height="71*"/>
-            <RowDefinition Height="147*"/>
+            <RowDefinition Height="127*"/>
+            <RowDefinition Height="223*"/>
         </Grid.RowDefinitions>
         <!-- 물결 모양 Path -->
 
@@ -34,11 +34,8 @@
                     </PathGeometry>
                 </Path.Data>
             </Path>
-        </Grid>
 
-        <Grid Grid.Row="1">
-            <StackPanel Orientation="Vertical">
-                <TextBox x:Name="TxtSearchBook" Grid.Column="0" Margin="5,10"
+            <TextBox x:Name="TxtBookName" Grid.Column="0" Margin="15,112,15,91"
                      FontSize="20"
                      InputMethod.PreferredImeState="On"
                      InputMethod.PreferredImeConversionMode="Native"
@@ -48,28 +45,48 @@
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      mah:TextBoxHelper.ClearTextButton="True"
                      Text="{Binding BookName, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding SearchBookCommand}" />
-                    </TextBox.InputBindings>
-                </TextBox>
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding SearchBookCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
 
-
-                <!-- Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 버튼 색이였던 것 -->
-
-                <Button Grid.Column="1" Margin="5,10" 
-                    FontSize="14" Content="검색"
-                    Command="{Binding SearchBookCommand}">
-                    <Button.ContentTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconModern Kind="Magnify" Margin="5,5,15,5" VerticalAlignment="Center" />
-                                <TextBlock Text="{Binding}" Margin="5" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </Button.ContentTemplate>
-                </Button>
-            </StackPanel>
+            <Button Command="{Binding checkCommand}" Content="화면이동 확인용 버튼" Height="10" Margin="291,174,33,31"/>
         </Grid>
+
+        <!-- 검색결과 영역 -->
+        <DataGrid Grid.Row="1"
+          Width="Auto" Height="Auto"
+          IsReadOnly="True" AutoGenerateColumns="False"
+          SelectionMode="Single" SelectionUnit="FullRow"
+          ItemsSource="{Binding BookItems}"
+          SelectedItem="{Binding SelectedBookItem, Mode=TwoWay}"
+          Style="{StaticResource MahApps.Styles.DataGrid.Azure}">
+            <!-- 여백 제거 -->
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding BookItemDoubleClickCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="책번호" FontWeight="Bold" Binding="{Binding Id}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="책제목" FontWeight="Bold" Binding="{Binding Title}" />
+
+                <DataGridTextColumn Header="대출가능여부" Binding="{Binding BorrowOX}" />
+
+                <DataGridTextColumn Header="위치" Binding="{Binding Location}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
 
 
     </Grid>

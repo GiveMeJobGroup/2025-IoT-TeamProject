@@ -9,10 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\check-mark.png" />
     <None Remove="Resources\CloseButton.png" />
     <None Remove="Resources\CloseButton_Click.png" />
     <None Remove="Resources\GondreMandre.png" />
     <None Remove="Resources\QRScan.png" />
+    <None Remove="Resources\Robot.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\check-mark.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\CloseButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -37,6 +42,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\QRScan.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Robot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
