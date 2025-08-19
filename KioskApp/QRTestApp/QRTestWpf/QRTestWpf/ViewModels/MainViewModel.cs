@@ -99,8 +99,9 @@ namespace QRTestWpf.ViewModels
 
         #endregion
 
-       //Menu -> 대출
-       [RelayCommand]
+        #region 대출 클릭시 화면
+        //Menu -> 대출
+        [RelayCommand]
         public void ShowQRScan()
         {
             var viewModel = new QRScanViewModel(Common.DIALOGCOORDINATOR, this);
@@ -112,14 +113,95 @@ namespace QRTestWpf.ViewModels
             CurrentView = view;
         }
 
-        // Menu -> 반남
+        // QR 코드 스캔 완료 및 회원 인증 완료
+        [RelayCommand]
+        public void ShowAfterScan()
+        {
+            var viewModel = new AfterScanViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new AfterScanView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+
+        // 책 스캔 완료 대출 여부 확인
+        [RelayCommand]
+        public void ShowBorrowOX()
+        {
+            var viewModel = new BorrowOXViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new BorrowOXView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+        
+
+
+        // 책 스캔 완료 후 대출 O 클릭
+        [RelayCommand]
+        public void ShowBorrow()
+        {
+            var viewModel = new BorrowViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new BorrowView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+
+        #endregion
+
+        #region 반납 클릭시 화면
+
+        // Menu -> 반납
         [RelayCommand]
         public void ShowReturn()
         {
+            var viewModel = new ReturnScanViewModel(Common.DIALOGCOORDINATOR, this);
 
+            var view = new ReturnScanView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
 
 
         }
+
+        //리더기 스캔 -> 반납함 화면 전환용
+        [RelayCommand]
+        public void ShowBox()
+        {
+            var viewModel = new ReturnBoxViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new ReturnBoxView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+
+        // 반납함확인 -> wait 화면 전환용
+        [RelayCommand]
+        public void ShowWait()
+        {
+            var viewModel = new WaitViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new WaitView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
+        #endregion
+
+
+
         #endregion
     }
 }
