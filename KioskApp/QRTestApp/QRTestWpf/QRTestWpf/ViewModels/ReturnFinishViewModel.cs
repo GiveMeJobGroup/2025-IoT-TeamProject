@@ -9,21 +9,24 @@ using System.Threading.Tasks;
 
 namespace QRTestWpf.ViewModels
 {
-    public partial class WaitViewModel : ObservableObject
+    public partial class ReturnFinishViewModel : ObservableObject
     {
-        private readonly MainViewModel _mainViewModel;
         private IDialogCoordinator DIALOGCOORDINATOR;
 
-        public WaitViewModel(IDialogCoordinator DIALOGCOORDINATOR, MainViewModel mainViewModel)
+        private readonly MainViewModel _mainViewModel;
+
+        public ReturnFinishViewModel(IDialogCoordinator DIALOGCOORDINATOR, MainViewModel mainViewModel)
         {
             this._mainViewModel = mainViewModel;
             this.DIALOGCOORDINATOR = DIALOGCOORDINATOR;
+
         }
 
+
         [RelayCommand]
-        public void ReturnO()
+        public void Thx()
         {
-            _mainViewModel.ShowReturnO();
+            _mainViewModel.ShowMenu();
         }
     }
 }

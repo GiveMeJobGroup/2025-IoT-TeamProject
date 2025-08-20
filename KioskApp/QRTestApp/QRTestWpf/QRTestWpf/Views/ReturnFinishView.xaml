@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="QRTestWpf.Views.ReturnFinishView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:QRTestWpf.Views"
+             Dialog:DialogParticipation.Register="{Binding}"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="450"
+             Background="#FFA500"
+             >
+    <!--둥근 버튼-->
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="84*"/>
+            <RowDefinition Height="169*"/>
+            <RowDefinition Height="97*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"  >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Image Source="/Resources/check-mark.png" Height="60" />
+                <TextBlock Foreground="White" VerticalAlignment="Center" FontSize="30" FontWeight="Bold" Margin="10">
+                    도서 반납되었습니다
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Image Source="/Resources/book.png" Margin="44,43,44,43"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Button Content="Thank You" FontSize="25" Margin="10,43,10,97" FontWeight="Bold"
+            Background="#FFFFFF" BorderBrush="#FF9B17" Foreground="#FF9B17"
+            Command="{Binding ThxCommand}"/>
+
+        </Grid>
+
+
+
+    </Grid>
+
+
+
+
+</UserControl>
