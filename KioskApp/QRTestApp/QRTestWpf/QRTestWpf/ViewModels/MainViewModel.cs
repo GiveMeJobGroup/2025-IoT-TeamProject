@@ -198,6 +198,19 @@ namespace QRTestWpf.ViewModels
             };
             CurrentView = view;
         }
+
+        // wait -> returnfinish 화면 전환용
+        [RelayCommand]
+        public void ShowReturnO()
+        {
+            var viewModel = new ReturnFinishViewModel(Common.DIALOGCOORDINATOR, this);
+
+            var view = new ReturnFinishView
+            {
+                DataContext = viewModel,
+            };
+            CurrentView = view;
+        }
         #endregion
 
 

@@ -9,8 +9,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60*"/>
-            <RowDefinition Height="68*"/>
-            <RowDefinition Height="47*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="78*"/>
         </Grid.RowDefinitions>
 
         <!-- 물결 모양 Path -->
@@ -31,16 +31,53 @@
 
         <Grid Grid.Row="1" >
             <TextBlock Text="잠시만 기다려 주세요"
-           FontSize="25"  FontWeight="Bold"
-           Foreground="#FFA500" 
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center"/>
-
+                           FontSize="25"  FontWeight="Bold"
+                           Foreground="#FFA500" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
         </Grid>
 
         <!-- 상태 메시지 -->
         <Grid Grid.Row="2">
             <!-- 프로그래스 바 들어가야함 -->
+            <ProgressBar Width="396" Height="20" IsIndeterminate="True" Margin="27,17,27,256">
+                <ProgressBar.Resources>
+                    <SolidColorBrush x:Key="ProgressBarIndeterminateBrush" Color="#FFA500"/>
+                </ProgressBar.Resources>
+                <ProgressBar.Style>
+                    <Style TargetType="ProgressBar">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ProgressBar">
+                                    <Grid x:Name="Root" Background="{TemplateBinding Background}">
+                                        <Rectangle x:Name="PART_Track" Fill="{TemplateBinding Background}" />
+                                        <Canvas ClipToBounds="True">
+                                            <Rectangle x:Name="PART_Indicator" Fill="{StaticResource ProgressBarIndeterminateBrush}" Width="50" Height="20"/>
+                                        </Canvas>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsIndeterminate" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <DoubleAnimation 
+                                                Storyboard.TargetName="PART_Indicator"
+                                                Storyboard.TargetProperty="(Canvas.Left)"
+                                                From="0" To="396" Duration="0:0:2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ProgressBar.Style>
+            </ProgressBar>
+
+
+
         </Grid>
 
         <Button Content="화면 전환 확인용" Margin="304,88,10,32"
