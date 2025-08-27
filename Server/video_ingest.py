@@ -1,61 +1,57 @@
-from flask import Blueprint, request, Response, jsonify
-import cv2, numpy as np, time
+from flask import Blueprint, Response, request, jsonify
+import cv2
+import requests
 
 bp = Blueprint("video", __name__)
-_last_jpeg = None
-_last_err  = None   # -1 ~ +1 (좌/우 오프셋)
 
-def detect_line(img):
-    h, w = img.shape[:2]
-    y0 = int(h*0.55)             # 하단 ROI
-    roi = img[y0:h, :]
+ESP_HOST = "http://192.168.0.12"   # ESP32 IP
+STREAM_URL = f"{ESP_HOST}/stream"
+MOTOR_URL  = f"{ESP_HOST}/motor"
 
-    g = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-    _, bw = cv2.threshold(g, 120, 255, cv2.THRESH_BINARY_INV)  # 검정 라인 가정
-    bw = cv2.medianBlur(bw, 5)
+# 간단 테스트: /video/show 로 들어오면 OpenCV 창에 띄움(개발용)
+@bp.route("/show", methods=["GET"])
+def show():
+    cap = cv2.VideoCapture(STREAM_URL)
+    if not cap.isOpened():
+        return "fail open stream", 500
 
-    cnts, _ = cv2.findContours(bw, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    vis = img.copy(); err = None
-    if cnts:
-        c = max(cnts, key=cv2.contourArea)
-        M = cv2.moments(c)
-        if M["m00"] > 0:
-            cx = int(M["m10"]/M["m00"])
-            err = (cx - w/2)/(w/2)                    # -1 ~ +1
-            cv2.drawContours(roi, [c], -1, (255,0,0), 2)
-            cv2.circle(roi, (cx, roi.shape[0]//2), 6, (0,255,0), -1)
-    vis[y0:h, :] = roi
-    txt = "NO LINE" if err is None else f"ERR={err:+.2f}"
-    cv2.putText(vis, txt, (10,30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0), 2)
-    return vis, err
+    while True:
+        ok, frame = cap.read()
+        if not ok:
+            break
 
-@bp.post("/ingest")
-def ingest():
-    global _last_jpeg, _last_err
-    f = request.files.get("frame")
-    if not f: return "no frame", 400
-    img = cv2.imdecode(np.frombuffer(f.read(), np.uint8), cv2.IMREAD_COLOR)
-    if img is None: return "bad jpeg", 400
+        # --- 여기서 라인트레이싱 판단(임시: 화면 가운데보다 왼/오 구분만) ---
+        h, w = frame.shape[:2]
+        cx = w // 2
+        # 예시: 왼쪽 밝기 합 vs 오른쪽 밝기 합 비교해서 조향
+        left_sum  = frame[:, :cx].mean()
+        right_sum = frame[:, cx:].mean()
+        steer = (right_sum - left_sum)  # 대충 오른쪽이 밝으면 오른쪽으로
 
-    vis, err = detect_line(img)
-    _last_err = err
-    ok, jpg = cv2.imencode(".jpg", vis)
-    if ok: _last_jpeg = jpg.tobytes()
-    return "OK", 200
+        base = 100
+        k = 0.1
+        l = int(max(0, min(255, base - k * steer)))
+        r = int(max(0, min(255, base + k * steer)))
+        try:
+            requests.get(MOTOR_URL, params={"l": l, "r": r}, timeout=0.1)
+        except Exception:
+            pass
 
-@bp.get("/stream")
-def stream():
-    def gen():
-        global _last_jpeg
-        if _last_jpeg is None:
-            blank = np.zeros((240,320,3), np.uint8)
-            cv2.putText(blank,"waiting...",(60,120),0,0.8,(255,255,255),2)
-            _last_jpeg = cv2.imencode(".jpg", blank)[1].tobytes()
-        while True:
-            yield (b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + _last_jpeg + b"\r\n")
-            time.sleep(0.03)
-    return Response(gen(), mimetype="multipart/x-mixed-replace; boundary=frame")
+        cv2.imshow("ESP32", frame)
+        if cv2.waitKey(1) & 0xFF == 27:  # ESC
+            break
 
-@bp.get("/status")
-def status():
-    return jsonify({"err": _last_err})
+    cap.release()
+    cv2.destroyAllWindows()
+    return "ok"
+
+# 실제 서비스에서는 /video/drive 같은 POST로 서버가 계산해서 모터 명령만 보냄
+@bp.route("/drive", methods=["POST"])
+def drive():
+    l = int(request.json.get("l", 0))
+    r = int(request.json.get("r", 0))
+    try:
+        requests.get(MOTOR_URL, params={"l": l, "r": r}, timeout=0.3)
+        return jsonify(ok=True)
+    except Exception as e:
+        return jsonify(ok=False, error=str(e)), 500
